@@ -19,6 +19,14 @@
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>Spring Security</id>
+      <name>Spring Security</name>
+      <url>https://mvnrepository.com/artifact/org.springframework.security/spring-security-core</url>
+    </repository>
+  </repositories>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -26,10 +34,53 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+    <!-- Spring Core and Spring Web MVC dependencies -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+        <version>5.0.7.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>5.0.7.RELEASE</version>
+    </dependency>
+    <!-- Spring security dependencies -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>5.0.4.RELEASE</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
+    <!--To start using the security namespace in your application context-->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>5.0.6.RELEASE</version>
+    </dependency>
+    <!--Provides Spring Security’s JSP tag implementations.-->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-taglibs</artifactId>
+      <version>5.0.6.RELEASE</version>
+      <type>jar</type>
+      <scope>compile</scope>
+    </dependency>
+    <!-- Servlet API -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
   </dependencies>
 
   <build>
-    <finalName>Jscholl-logictic</finalName>
+    <finalName>JSchool-logistic</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -60,7 +111,8 @@
         <plugin>
           <artifactId>maven-deploy-plugin</artifactId>
           <version>2.8.2</version>
-        </plugin>        
+        </plugin>
+        <!-- Tomcat plugin for launching server with Maven -->
   		<plugin>
   			<groupId>org.apache.tomcat.maven</groupId>
   			<artifactId>tomcat7-maven-plugin</artifactId>

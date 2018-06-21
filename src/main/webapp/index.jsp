@@ -1,19 +1,20 @@
 <html>
 	<head>
-		<Title>
+		<title>
 			Main Page for Logistic Site
-		</Title>
+		</title>
+		<link href="style/index.css" type="text/css" rel="stylesheet" />
 	</head>
 	<body>
 		<div id="mainDiv">
 			<div id="authenticationForm">
 				<!-- Login field -->
-				<div>
+				<div class="enterField">
 					Login
 					<input type="text" id="loginField" />
 				</div>
 				<!-- Password field-->
-				<div>
+				<div class="enterField">
 					Password
 					<input type="password" id="passwordField">
 				</div>
