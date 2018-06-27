@@ -1,5 +1,5 @@
 
-package com;
+package com.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 
 /**
+ * This controller have methods to validate input data which seems like '/main.'
  * Created by Mandrake on 22.06.2018.
  */
 
 @Controller
-public class MainController {
+public class AuthenticationController {
     /**
      * Method for validate input from main form login and password
      * @param request request from main form
