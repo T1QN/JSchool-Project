@@ -6,20 +6,20 @@
     <!-- Configuring the JDBC connection-->
     <bean id="dataSourceBean" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/springmvc" />
-        <property name="username" value="root" />
-        <property name="password" value="" />
+        <property name="url" value="jdbc:mysql://localhost:3306/db_logistic" />
+        <property name="username" value="db_logistic" />
+        <property name="password" value="db_logistic_admin_26" />
     </bean>
 
     <!-- Configuring the Hibernate4 Session Factory Bean -->
     <bean id="sessionFactoryBean" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSourceBean" />
-        <property name="mappingResources">
-            <value>com/jcg/spring/hibernate/pojo/User.hbm.xml</value>
+        <property name="mappingPackages">
+            <value>com/model/hibernate/user</value>
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
@@ -29,7 +29,12 @@
         <property name="sessionFactory" ref="sessionFactoryBean" />
     </bean>
 
-    <bean id="authenticateServiceBean" class="com.jcg.spring.hibernate.service.AuthService">
-        <property name="hibernateTemplate" ref="hibernateTemplateBean" />
+
+    <!-- Hibernate DAO Beans -->
+    <bean id="userServiceBean" class="com.model.service.UserService">
+
     </bean>
+
+    <!-- Service Beans -->
+
 </beans>

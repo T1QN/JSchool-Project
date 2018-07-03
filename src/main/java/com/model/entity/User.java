@@ -1,11 +1,6 @@
-package com.model.hibernate.user;
+package com.model.entity;
 
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -42,10 +37,6 @@ public class User {
      */
     private UserType type;
 
-    /**
-     * Getting ID from User instance.
-     * @return User's ID
-     */
     ///////////////////////////////////////////////////////////////////////////
     // Constructors Block
     ///////////////////////////////////////////////////////////////////////////
@@ -66,8 +57,15 @@ public class User {
      * @param registrationParam registration date for user
      * @param typeParam type for user
      */
-    public User(final long idParam, final String loginParam, final String passwordParam, final Date registrationParam, final UserType typeParam) {
-        this.id = idParam;
+    public User(
+            final String loginParam,
+            final String passwordParam,
+            final Date registrationParam,
+            final UserType typeParam) {
+        this.login = loginParam;
+        this.password = passwordParam;
+        this.registration = registrationParam;
+        this.type = typeParam;
     }
     ///////////////////////////////////////////////////////////////////////////
     // Getters & Setters Block
@@ -78,7 +76,7 @@ public class User {
      * @return ID from User's instance
      */
     @Id
-    @PrimaryKeyJoinColumn
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     public long getId() {
         return id;
@@ -144,11 +142,36 @@ public class User {
         this.registration = registrationParam;
     }
 
+    /**
+     * Getting UserType from current User
+     * @return User's type
+     */
+    @Column(name = "userType")
+    @ManyToOne(targetEntity = UserType.class, cascade = CascadeType.ALL)
     public UserType getType() {
         return type;
     }
 
-    public void setType(UserType type) {
-        this.type = type;
+    /**
+     * Setting UsetType for current User
+     * @param typeParam seated user type
+     */
+    public void setType(final UserType typeParam) {
+        this.type = typeParam;
+    }
+
+    /**
+     * Creating instance to string
+     * @return created string
+     */
+    @Override
+    public String toString() {
+        return new StringBuilder()
+                .append(id)
+                .append(login)
+                .append(password)
+                .append(registration.toString())
+                .append(type.toString())
+                .toString();
     }
 }

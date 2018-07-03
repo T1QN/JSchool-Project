@@ -9,10 +9,10 @@
 		<div id="mainDiv">
 			<div id="authenticationForm">
 				<!-- Login field -->
-				<form action="main.html" method="post">
+				<form action="user.html/add" method="post">
                     <div class="enterField">
                         Login
-                        <input type="text" id="loginField" name="name"/>
+                        <input type="text" id="loginField" name="login"/>
                     </div>
                     <!-- Password field-->
                     <div class="enterField">

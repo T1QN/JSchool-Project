@@ -9,6 +9,6 @@
         <property name="hibernate.connection.username">db_logistic</property>
         <property name="hibernate.connection.password">db_logistic_admin_26</property>
 
-        <mapping resource="com/model/hibernate/user/User.hbm.xml" />
+        <mapping package="com.model.hibernate.User" />
     </session-factory>
 </hibernate-configuration>
