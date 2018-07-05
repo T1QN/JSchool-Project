@@ -1,7 +1,7 @@
 package com.model.dao;
 
+import com.model.dto.UserDTO;
 import com.model.entity.User;
-import com.model.entity.UserType;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -30,7 +30,7 @@ public interface UserDAO {
      * @return list of users
      * @throws SQLException throws if something wrong
      */
-    List<User> getAllbyType(UserType type) throws SQLException;
+    List<User> getAllbyType(String type) throws SQLException;
 
     /**
      * Getting user by id from database
@@ -38,8 +38,15 @@ public interface UserDAO {
      * @return founded User's instance
      * @throws SQLException throws if something wrong
      */
-    User getById(int id) throws SQLException;
+    User getById(Integer id) throws SQLException;
 
+    /**
+     * Getting user by login name from database
+     * @param login user's login
+     * @return founded User's instance
+     * @throws SQLException throws if something wrong
+     */
+    User getByLogin(String login) throws SQLException;
     /**
      * Updating state for current user
      * @param user current user
@@ -53,4 +60,21 @@ public interface UserDAO {
      * @throws SQLException throws if something wrong
      */
     void delete(User user) throws SQLException;
+
+    /**
+     * Tranfer current DAO to DTO
+     * @return
+     */
+    // UserDTO toDTO();
+
+    /*
+    /**
+     * Generation UserDAO object from received UserDTO object
+     * @param userDTO received DTO object
+     * @return generated DAO object
+     *
+    static UserDAO fromDTO(UserDTO userDTO) {
+        return null;
+    }
+    */
 }

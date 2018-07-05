@@ -2,7 +2,6 @@
 package com.controller;
 
 import com.model.entity.User;
-import com.model.entity.UserType;
 import com.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +28,13 @@ public class AuthenticationController {
     @Autowired
     private UserService userService;
 
+    /**
+     *
+     * @param service
+     */
+    public void setUserService(UserService service) {
+        this.userService = service;
+    }
     /**
      *
      * @param request HTTP request

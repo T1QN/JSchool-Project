@@ -1,71 +1,26 @@
 package com.model.service;
 
-import com.model.dao.UserDAO;
-import com.model.entity.User;
-import com.model.entity.UserType;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
+import com.model.dto.UserDTO;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.SQLException;
-import java.util.List;
 
 /**
  * Created by Mandrake on 03.07.2018.
  */
-public class UserService extends AbstractService implements UserDAO{
+public interface UserService {
+    /**
+     * Creating new user in system
+     * @param userDTO User Data
+     * @return modified DTO for current user
+     */
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    UserDTO registerUser(UserDTO userDTO);
 
     /**
-     *
-     * @param user added user
-     * @throws SQLException
+     * Authorize current user in system
+     * @param userDTO User Data
+     * @return modified DTO for current user
      */
-    @Transactional
-    @Override
-    public void add(final User user) throws SQLException {
-        getSessionFactory().openSession().save(user);
-        closeSession();
-    }
-
-    /**
-     *
-     * @return
-     * @throws SQLException
-     */
-    @Transactional
-    @Override
-    public List<User> getAll() throws SQLException {
-        Query selectQuery = getSessionFactory().openSession().createNativeQuery("SELECT * FROM USER");
-        closeSession();
-        return selectQuery.list();
-    }
-
-    /**
-     *
-     * @param type gated user type
-     * @return
-     * @throws SQLException
-     */
-    @Override
-    public List<User> getAllbyType(final UserType type) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public User getById(int id) throws SQLException {
-        return null;
-    }
-
-    @Override
-    public void update(User user) throws SQLException {
-
-    }
-
-    @Override
-    public void delete(User user) throws SQLException {
-
-    }
-
-
+    @Transactional(isolation = Isolation.READ_COMMITTED)
+    UserDTO loginUser(UserDTO userDTO);
 }

@@ -12,7 +12,7 @@
     </bean>
 
     <!-- Configuring the Hibernate4 Session Factory Bean -->
-    <bean id="sessionFactoryBean" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="dataSourceBean" />
         <property name="mappingPackages">
             <value>com/model/hibernate/user</value>

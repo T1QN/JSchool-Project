@@ -1,4 +1,4 @@
-package com.model.service;
+package com.model.dao.impl;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by Mandrake on 03.07.2018.
  */
-public abstract class AbstractService {
+public abstract class AbstractDAO {
 
 
     /**
@@ -32,7 +32,7 @@ public abstract class AbstractService {
     }
 
     /**
-     *
+     * Closing active session
      */
     protected void closeSession() {
         sessionFactory.getCurrentSession().close();

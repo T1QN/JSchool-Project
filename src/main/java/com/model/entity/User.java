@@ -1,6 +1,16 @@
 package com.model.entity;
 
-import javax.persistence.*;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Repository;
+
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+import javax.persistence.SecondaryTable;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.util.Date;
 
 /**
@@ -8,8 +18,13 @@ import java.util.Date;
  * Store authentication data for user in system.
  * Created by Mandrake on 25.06.2018.
  */
+@Repository("user")
+@Scope("prototype")
 @Entity
 @Table(name = "User")
+@SecondaryTable(name = "usertype", pkJoinColumns = {
+        @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "userType")
+})
 public class User {
 
     ///////////////////////////////////////////////////////////////////////////
@@ -35,7 +50,7 @@ public class User {
     /**
      * Type of user. Link on UserType's table
      */
-    private UserType type;
+    private String type;
 
     ///////////////////////////////////////////////////////////////////////////
     // Constructors Block
@@ -51,7 +66,6 @@ public class User {
 
     /**
      * Constructor with all parameters
-     * @param idParam ID for User
      * @param loginParam login name for User
      * @param passwordParam hash of password for user
      * @param registrationParam registration date for user
@@ -61,7 +75,7 @@ public class User {
             final String loginParam,
             final String passwordParam,
             final Date registrationParam,
-            final UserType typeParam) {
+            final String typeParam) {
         this.login = loginParam;
         this.password = passwordParam;
         this.registration = registrationParam;
@@ -146,9 +160,8 @@ public class User {
      * Getting UserType from current User
      * @return User's type
      */
-    @Column(name = "userType")
-    @ManyToOne(targetEntity = UserType.class, cascade = CascadeType.ALL)
-    public UserType getType() {
+    @Column(table = "usertype", name = "type")
+    public String getType() {
         return type;
     }
 
@@ -156,10 +169,13 @@ public class User {
      * Setting UsetType for current User
      * @param typeParam seated user type
      */
-    public void setType(final UserType typeParam) {
+    public void setType(final String typeParam) {
         this.type = typeParam;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Utils block
+    ///////////////////////////////////////////////////////////////////////////
     /**
      * Creating instance to string
      * @return created string
