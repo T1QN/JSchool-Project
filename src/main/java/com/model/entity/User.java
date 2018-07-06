@@ -1,16 +1,6 @@
 package com.model.entity;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Repository;
-
-import javax.persistence.Entity;
-import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
-import javax.persistence.SecondaryTable;
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -18,13 +8,8 @@ import java.util.Date;
  * Store authentication data for user in system.
  * Created by Mandrake on 25.06.2018.
  */
-@Repository("user")
-@Scope("prototype")
 @Entity
 @Table(name = "User")
-@SecondaryTable(name = "usertype", pkJoinColumns = {
-        @PrimaryKeyJoinColumn(name = "id", referencedColumnName = "userType")
-})
 public class User {
 
     ///////////////////////////////////////////////////////////////////////////
@@ -50,7 +35,7 @@ public class User {
     /**
      * Type of user. Link on UserType's table
      */
-    private String type;
+    private Role role;
 
     ///////////////////////////////////////////////////////////////////////////
     // Constructors Block
@@ -69,17 +54,17 @@ public class User {
      * @param loginParam login name for User
      * @param passwordParam hash of password for user
      * @param registrationParam registration date for user
-     * @param typeParam type for user
+     * @param roleParam role for user
      */
     public User(
             final String loginParam,
             final String passwordParam,
             final Date registrationParam,
-            final String typeParam) {
+            final Role roleParam) {
         this.login = loginParam;
         this.password = passwordParam;
         this.registration = registrationParam;
-        this.type = typeParam;
+        this.role = roleParam;
     }
     ///////////////////////////////////////////////////////////////////////////
     // Getters & Setters Block
@@ -158,19 +143,20 @@ public class User {
 
     /**
      * Getting UserType from current User
-     * @return User's type
+     * @return User's role
      */
-    @Column(table = "usertype", name = "type")
-    public String getType() {
-        return type;
+    @ManyToOne(targetEntity = Role.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "role", referencedColumnName = "id")
+    public Role getRole() {
+        return role;
     }
 
     /**
-     * Setting UsetType for current User
-     * @param typeParam seated user type
+     * Setting UserType for current User
+     * @param typeParam seated user role
      */
-    public void setType(final String typeParam) {
-        this.type = typeParam;
+    public void setRole(final Role typeParam) {
+        this.role = typeParam;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -187,7 +173,7 @@ public class User {
                 .append(login)
                 .append(password)
                 .append(registration.toString())
-                .append(type.toString())
+                .append(role)
                 .toString();
     }
 }

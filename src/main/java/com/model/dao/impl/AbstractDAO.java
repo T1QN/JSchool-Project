@@ -12,13 +12,13 @@ public abstract class AbstractDAO {
     /**
      * Link on Sessions Factory bean, which dd all Hibernate's actions.
      */
-    @Autowired
     private SessionFactory sessionFactory;
 
     /**
      * Setting session factory instance
      * @param factory seated session factory
      */
+    @Autowired
     public void setSessionFactory(final SessionFactory factory) {
         this.sessionFactory = factory;
     }

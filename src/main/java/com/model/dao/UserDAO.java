@@ -1,6 +1,7 @@
 package com.model.dao;
 
 import com.model.dto.UserDTO;
+import com.model.entity.Role;
 import com.model.entity.User;
 
 import java.sql.SQLException;
@@ -26,11 +27,11 @@ public interface UserDAO {
 
     /**
      * Getting all Users from database, who are current user type
-     * @param type gated user type
+     * @param role gated user type
      * @return list of users
      * @throws SQLException throws if something wrong
      */
-    List<User> getAllbyType(String type) throws SQLException;
+    List<User> getAllbyType(Role role) throws SQLException;
 
     /**
      * Getting user by id from database
@@ -61,20 +62,4 @@ public interface UserDAO {
      */
     void delete(User user) throws SQLException;
 
-    /**
-     * Tranfer current DAO to DTO
-     * @return
-     */
-    // UserDTO toDTO();
-
-    /*
-    /**
-     * Generation UserDAO object from received UserDTO object
-     * @param userDTO received DTO object
-     * @return generated DAO object
-     *
-    static UserDAO fromDTO(UserDTO userDTO) {
-        return null;
-    }
-    */
 }

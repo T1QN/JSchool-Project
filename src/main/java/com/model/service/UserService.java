@@ -23,4 +23,5 @@ public interface UserService {
      */
     @Transactional(isolation = Isolation.READ_COMMITTED)
     UserDTO loginUser(UserDTO userDTO);
+
 }

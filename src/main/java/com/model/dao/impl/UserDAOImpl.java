@@ -1,7 +1,9 @@
 package com.model.dao.impl;
 
 import com.model.dao.UserDAO;
+import com.model.entity.Role;
 import com.model.entity.User;
+import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
@@ -26,7 +28,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Transactional(propagation = Propagation.MANDATORY)
     public void add(final User user) throws SQLException {
         getSessionFactory().openSession().save(user);
-        closeSession();
     }
 
     /**
@@ -37,20 +38,23 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     @Override
     @Transactional(propagation = Propagation.MANDATORY, readOnly = true)
     public List<User> getAll() throws SQLException {
-        return getSessionFactory().openSession().createQuery("FROM User").list();
+        return getSessionFactory().openSession().createQuery("FROM User", User.class).list();
     }
 
     /**
      * Getting list of all users from DB by their type
-     * @param type gated user type
+     * @param role gated user type
      * @return list of users
      * @throws SQLException
      */
     @Override
     @Transactional(propagation = Propagation.MANDATORY, readOnly = true)
-    public List<User> getAllbyType(final String type) throws SQLException {
-        List<User> list = getSessionFactory().openSession().createNativeQuery("FROM User").list();
-        return null;
+    public List<User> getAllbyType(final Role role) throws SQLException {
+        Session s = getSessionFactory().openSession();
+        Query<User> query = s.createQuery("FROM User, Role WHERE Role.role=?", User.class);
+        query.setParameter(1, role.getRole());
+        List<User> list = query.list();
+        return list;
     }
 
     /**
@@ -73,8 +77,8 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
      */
     @Override
     public User getByLogin(final String login) throws SQLException {
-        Query<User> query = getSessionFactory().openSession().createQuery("FROM User WHERE User.login=?");
-        query.setParameter(1, login);
+        Query<User> query = getSessionFactory().openSession().createQuery("FROM User U WHERE U.login=:login", User.class);
+        query.setParameter("login", login);
         return query.getSingleResult();
     }
 

@@ -1,7 +1,8 @@
 
 package com.controller;
 
-import com.model.entity.User;
+import com.model.dto.RoleDTO;
+import com.model.dto.UserDTO;
 import com.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.SQLException;
 import java.util.Calendar;
-
 
 /**
  * This controller have methods to validate input data which seems like '/main.'
@@ -20,60 +19,41 @@ import java.util.Calendar;
  */
 
 @Controller
-@RequestMapping("user")
+@RequestMapping("/user")
 public class AuthenticationController {
+
     /**
-     *
+     * Service for registration, authorization and deleting users
      */
-    @Autowired
     private UserService userService;
 
     /**
-     *
-     * @param service
+     * Setting user service for current controller
+     * @param userService seated user service
      */
-    public void setUserService(UserService service) {
-        this.userService = service;
+    @Autowired
+    public void setUserService(final UserService userService) {
+        this.userService = userService;
     }
+
     /**
      *
      * @param request HTTP request
      * @return
      */
-    @RequestMapping(path = "/add", method = RequestMethod.POST)
-    public ModelAndView add(final HttpServletRequest request) {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        /* Incorrect.
-         * Need realize DI and IoC to anything "UserFactory"
-         *
-         */
-        try {
-            User newUser = new User();
-            newUser.setLogin(login);
-            newUser.setPassword(password);
-            newUser.setRegistration(Calendar.getInstance().getTime());
-            newUser.setType(new UserType("user"));
-            userService.add(newUser);
-        } catch (SQLException exp) {
-            return errorPage("Add new user");
-        }
-        return new ModelAndView("validate", "user", login);
-    }
+    @RequestMapping(path = "/register", method = RequestMethod.POST)
+    public ModelAndView register(final HttpServletRequest request) {
 
-    /**
-     * Method for validate input from main form login and password
-     * @param request request from main form
-     * @return
-     */
-    @RequestMapping("/validate")
-    public ModelAndView validate(final HttpServletRequest request) {
-        if (    request.getParameter("name").equalsIgnoreCase("admin")
-                &&
-                request.getParameter("password").equals("123")) {
-            return new ModelAndView("validate", "message", "Authentication correct");
+        UserDTO userDTO = userService.registerUser(
+                createUserDTO(
+                        request.getParameter("login"),
+                        request.getParameter("password")
+                )
+        );
+        if (userDTO.isValidate() && userDTO.isAuthorized()) {
+            return new ModelAndView("validate");
         } else {
-            return new ModelAndView("invalidate", "message", "Authentication incorrect");
+            return new ModelAndView("invalidate");
         }
     }
 
@@ -87,5 +67,41 @@ public class AuthenticationController {
         modelAndView.addObject("errorType", "SQL");
         modelAndView.addObject("errorSource", source);
         return modelAndView;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // DTO generation block
+    ///////////////////////////////////////////////////////////////////////////
+
+    /**
+     * Creating instance of User DTO
+     * @param login user login
+     * @param password user password
+     * @param role user role
+     * @return configured User DTO
+     */
+    public UserDTO createUserDTO(final String login, final String password, final String role) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setLogin(login);
+        userDTO.setPassword(password);
+        userDTO.setRegistration(
+                Calendar.getInstance().getTime()
+        );
+        userDTO.setRole(
+              new RoleDTO(role)
+        );
+        userDTO.setValidate(false);
+        userDTO.setAuthorized(false);
+        return userDTO;
+    }
+
+    /**
+     * Creating instance of User DTO with default role
+     * @param login user login
+     * @param password user password
+     * @return configured User DTO with default role
+     */
+    public UserDTO createUserDTO(final String login, final String password) {
+        return createUserDTO(login, password, "user");
     }
 }
