@@ -18,16 +18,18 @@
 --
 -- Table structure for table `city`
 --
+CREATE DATABASE IF NOT EXISTS db_logistic;
+
+USE db_logistic;
 
 DROP TABLE IF EXISTS `city`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `city` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +47,6 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `driver`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `driver` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
@@ -60,7 +61,7 @@ CREATE TABLE `driver` (
   UNIQUE KEY `num` (`num`),
   KEY `user_ID` (`user_id`),
   CONSTRAINT `driver_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -78,13 +79,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `driverlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `driverlist` (
   `id` int(16) NOT NULL,
   `driver` int(16) NOT NULL,
   `team_id` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`,`driver`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,14 +102,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `item` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `name` varchar(40) NOT NULL,
   `capacity` decimal(7,2) DEFAULT NULL,
   `status` enum('prepared','unload','delivered') DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -127,13 +126,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `logisticorder`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `logisticorder` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `status` tinyint(1) NOT NULL,
   `van_id` int(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +149,6 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `road`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `road` (
   `city_id` int(16) NOT NULL,
   `near_city_id` int(16) NOT NULL,
@@ -159,7 +156,7 @@ CREATE TABLE `road` (
   `id` int(16) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `city_id` (`city_id`,`near_city_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -177,13 +174,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `role` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `role` varchar(40) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `type` (`role`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -202,7 +198,6 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `route`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `route` (
   `id` int(16) NOT NULL,
   `city_id` int(16) DEFAULT NULL,
@@ -210,7 +205,7 @@ CREATE TABLE `route` (
   `task` tinyint(1) DEFAULT NULL,
   `order_id` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -228,11 +223,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `team`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `team` (
   `id` int(16) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -250,7 +244,6 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `user` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `login` varchar(40) NOT NULL,
@@ -259,7 +252,7 @@ CREATE TABLE `user` (
   `role` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `login` (`login`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,7 +271,6 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `van`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `van` (
   `id` int(16) NOT NULL AUTO_INCREMENT,
   `reg_num` char(7) NOT NULL,
@@ -288,7 +280,7 @@ CREATE TABLE `van` (
   `current_city` int(16) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `reg_num` (`reg_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+);
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
