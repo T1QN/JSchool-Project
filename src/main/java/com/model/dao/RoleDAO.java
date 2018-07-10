@@ -1,6 +1,6 @@
 package com.model.dao;
 
-import com.model.entity.Role;
+import com.model.entity.user.Role;
 
 import java.sql.SQLException;
 import java.util.List;

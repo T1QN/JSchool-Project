@@ -3,7 +3,7 @@ package com.model.service.impl;
 import com.model.dao.RoleDAO;
 import com.model.dao.UserDAO;
 import com.model.dto.UserDTO;
-import com.model.entity.User;
+import com.model.entity.user.User;
 import com.model.service.UserService;
 import com.model.service.ValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -105,5 +105,22 @@ public class UserServiceImpl implements UserService {
             // Log and other actions to error in registration
             return userDTO;
         } return userDTO;
+    }
+
+    @Override
+    public UserDTO updateUserData(UserDTO oldUser, UserDTO newUser) {
+        try {
+            User user = userDAO.getByLogin(oldUser.getLogin());
+            user.setLogin(newUser.getLogin());
+            user.setPassword(newUser.getPassword());
+            user.setRole(
+                    roleDAO.getByRole(
+                            newUser.getRole().getRole()
+                    )
+            );
+        } catch (SQLException sexp) {
+            return oldUser;
+        } return newUser;
+
     }
 }

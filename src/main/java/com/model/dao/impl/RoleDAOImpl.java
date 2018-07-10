@@ -1,8 +1,7 @@
 package com.model.dao.impl;
 
 import com.model.dao.RoleDAO;
-import com.model.dto.RoleDTO;
-import com.model.entity.Role;
+import com.model.entity.user.Role;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.context.annotation.Scope;

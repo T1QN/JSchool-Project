@@ -24,4 +24,13 @@ public interface UserService {
     @Transactional(isolation = Isolation.READ_COMMITTED)
     UserDTO loginUser(UserDTO userDTO);
 
+    /**
+     * Updating user data
+     * @param oldUser old user data
+     * @param newUser new user data
+     * @return updated user data
+     */
+    @Transactional
+    UserDTO updateUserData(UserDTO oldUser, UserDTO newUser);
+
 }

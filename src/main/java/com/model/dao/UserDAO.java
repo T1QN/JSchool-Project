@@ -1,8 +1,7 @@
 package com.model.dao;
 
-import com.model.dto.UserDTO;
-import com.model.entity.Role;
-import com.model.entity.User;
+import com.model.entity.user.Role;
+import com.model.entity.user.User;
 
 import java.sql.SQLException;
 import java.util.List;

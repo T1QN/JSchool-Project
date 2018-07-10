@@ -10,13 +10,13 @@ CREATE TABLE IF NOT EXISTS User(
     login VARCHAR(40) NOT NULL UNIQUE,
     password VARCHAR(256),
     registration DATE,
-    userType INT(16)
+    role INT(16)
 );
 
 SELECT 'Creating UserData Table.\n';
-CREATE TABLE IF NOT EXISTS UserType(
+CREATE TABLE IF NOT EXISTS Role(
     id INT(16) PRIMARY KEY AUTO_INCREMENT,
-    type VARCHAR(40) UNIQUE NOT NULL
+    role VARCHAR(40) UNIQUE NOT NULL
 );
 
 SELECT 'Creating Van Table.\n';
@@ -48,13 +48,18 @@ CREATE TABLE IF NOT EXISTS DriverList(
 );
 
 SELECT 'Creating City Table\n';
-SELECT 'This table contains four columns: id, city name, near city ID and range from near.\n';
-SELECT 'Reading from this database in graph inctance. All relations are not commutative.\n';
 CREATE TABLE IF NOT EXISTS City(
     id INT(16) PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(40) UNIQUE NOT NULL,
-    near INT(16) NOT NULL,
-    range_to INT(16)
+);
+
+SELECT 'Creating City Mapping table\n';
+SELECT 'Reading from this database in graph inctance. All relations are not commutative.\n';
+CREATE TABLE IF NOT EXISTS Map(
+    city_id INT(16) NOT NULL,
+    near_city_id INT(16) NOT NULL,
+    range_to INT(16),
+    PRIMARY KEY (city_id, near_city_id)
 );
 
 SELECT 'Creating Route Table.\n';

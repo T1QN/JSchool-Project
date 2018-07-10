@@ -36,6 +36,8 @@ public class UserDTO {
      * @param password
      * @param registration
      * @param role
+     * @param validate
+     * @param authorized
      */
     public UserDTO(
             final String login,
@@ -104,6 +106,22 @@ public class UserDTO {
 
     public void setAuthorized(boolean authorized) {
         this.authorized = authorized;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Object extended
+    ///////////////////////////////////////////////////////////////////////////
+
+    public boolean equals(final Object other) {
+        if (this.getClass().equals(other.getClass())) {
+            UserDTO otherDTO = (UserDTO) other;
+            return this.authorized == otherDTO.authorized
+                    && this.validate == otherDTO.validate
+                    && this.getLogin().equals(otherDTO.getLogin())
+                    && this.getPassword().equals(otherDTO.getPassword())
+                    && this.getRegistration().equals(otherDTO.getRegistration())
+                    && this.getRole().equals(otherDTO.getRole());
+        } else return false;
     }
 
 
