@@ -17,6 +17,8 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <spring.security>5.0.6.RELEASE</spring.security>
+    <slf4j-version>1.7.12</slf4j-version>
   </properties>
 
   <repositories>
@@ -26,6 +28,7 @@
       <url>https://mvnrepository.com/artifact/org.springframework.security/spring-security-core</url>
     </repository>
   </repositories>
+
 
   <dependencies>
     <!-- JUnit library for unit-test's -->
@@ -48,36 +51,63 @@
     </dependency>
     <!-- Spring security dependencies -->
     <dependency>
+        <groupId>org.springframework.security</groupId>
+        <artifactId>spring-security-web</artifactId>
+        <version>${spring.security}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-core</artifactId>
-      <version>5.0.4.RELEASE</version>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring.security}</version>
     </dependency>
 
     <dependency>
       <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-web</artifactId>
-      <version>5.0.6.RELEASE</version>
-    </dependency>
-    <!--To start using the security namespace in your application context-->
-    <dependency>
-      <groupId>org.springframework.security</groupId>
-      <artifactId>spring-security-config</artifactId>
-      <version>5.0.6.RELEASE</version>
-    </dependency>
-    <!--Provides Spring Security’s JSP tag implementations.-->
-    <dependency>
-      <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-taglibs</artifactId>
-      <version>5.0.6.RELEASE</version>
-      <type>jar</type>
-      <scope>compile</scope>
+      <version>${spring.security}</version>
     </dependency>
-    <!-- Servlet API -->
+
+    <!-- JSTL Library -->
     <dependency>
-      <groupId>org.mortbay.jetty</groupId>
+      <groupId>javax.servlet</groupId>
       <artifactId>servlet-api</artifactId>
-      <version>3.0.20100224</version>
-      <scope>provided</scope>
+      <version>2.5</version>
+        <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>javax.servlet</groupId>
+          <artifactId>servlet-api</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>jsp-api</artifactId>
+      <version>2.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>jstl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    <!-- Logger -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>jcl-over-slf4j</artifactId>
+      <version>${slf4j-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>${slf4j-version}</version>
+      <scope>runtime</scope>
     </dependency>
     <!-- Hibernate -->
     <dependency>
@@ -105,11 +135,18 @@
           <artifactId>spring-orm</artifactId>
           <version>4.3.7.RELEASE</version>
       </dependency>
-    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <!-- MySQL JDBC Connector Library -->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.11</version>
+    </dependency>
+
+    <!-- Model Mapper -->
+    <dependency>
+      <groupId>org.modelmapper.extensions</groupId>
+      <artifactId>modelmapper-spring</artifactId>
+      <version>2.1.0</version>
     </dependency>
 
   </dependencies>

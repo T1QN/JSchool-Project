@@ -14,23 +14,14 @@ public interface UserService {
      * @return modified DTO for current user
      */
     @Transactional(isolation = Isolation.SERIALIZABLE)
-    UserDTO registerUser(UserDTO userDTO);
-
-    /**
-     * Authorize current user in system
-     * @param userDTO User Data
-     * @return modified DTO for current user
-     */
-    @Transactional(isolation = Isolation.READ_COMMITTED)
-    UserDTO loginUser(UserDTO userDTO);
+    boolean registerUser(UserDTO userDTO);
 
     /**
      * Updating user data
-     * @param oldUser old user data
-     * @param newUser new user data
+     * @param user updated user data
      * @return updated user data
      */
     @Transactional
-    UserDTO updateUserData(UserDTO oldUser, UserDTO newUser);
+    UserDTO updateUserData(UserDTO user);
 
 }

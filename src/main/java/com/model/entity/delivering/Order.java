@@ -1,6 +1,7 @@
 package com.model.entity.delivering;
 
 import com.model.entity.user.Driver;
+import com.model.entity.van.Van;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -25,13 +26,13 @@ public class Order {
     private boolean status;
 
     @OneToOne(targetEntity = Van.class)
-    @Column(name = "van_id")
+    @JoinColumn(name = "van_id", referencedColumnName = "id")
     private Van van;
 
-    @OneToMany(targetEntity = Driver.class, mappedBy = "loigsticorder")
+    @OneToMany(targetEntity = Driver.class)
     private Set<Driver> team;
 
-    @OneToMany(targetEntity = Route.class, mappedBy = "logisticorder")
+    @OneToMany(targetEntity = Route.class)
     private Set<Route> route;
 
     ///////////////////////////////////////////////////////////////////////////
@@ -87,7 +88,13 @@ public class Order {
     }
 
     public Order(boolean status, Van van, Set<Driver> team, Set<Route> route) {
-
+        this.status = status;
+        this.van = van;
+        this.team = team;
+        this.route = route;
+    }
+    public Order(long id, boolean status, Van van, Set<Driver> team, Set<Route> route) {
+        this.id = id;
         this.status = status;
         this.van = van;
         this.team = team;

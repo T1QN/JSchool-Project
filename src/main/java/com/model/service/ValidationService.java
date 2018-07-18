@@ -7,5 +7,5 @@ import com.model.dto.UserDTO;
  */
 public interface ValidationService {
 
-    UserDTO validate(UserDTO userDTO);
+    boolean validateUser(UserDTO userDTO);
 }

@@ -25,6 +25,12 @@ public class Road {
         this.near = near;
         this.range = range;
     }
+    public Road(long id, City city, City near, Integer range) {
+        this.id = id;
+        this.city = city;
+        this.near = near;
+        this.range = range;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +43,8 @@ public class Road {
         this.id = id;
     }
 
-    @OneToMany(targetEntity = City.class)
-    @Column(name = "city_id")
+    @ManyToOne(targetEntity = City.class)
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
     public City getCity() {
         return city;
     }
@@ -47,8 +53,8 @@ public class Road {
         this.city = city;
     }
 
-    @OneToMany(targetEntity = City.class)
-    @Column(name = "near_city_id")
+    @ManyToOne(targetEntity = City.class)
+    @JoinColumn(name = "near_city_id", referencedColumnName = "id")
     public City getNear() {
         return near;
     }

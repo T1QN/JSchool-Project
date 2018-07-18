@@ -1,7 +1,7 @@
 package com.model.entity.user;
 
 import com.model.entity.delivering.Order;
-import com.model.entity.delivering.Van;
+import com.model.entity.van.Van;
 import com.model.entity.map.City;
 
 import javax.persistence.*;
@@ -51,7 +51,7 @@ public class Driver {
      * Current city location for this driver.
      */
     @ManyToOne(targetEntity = City.class, cascade = CascadeType.ALL)
-    @Column(name = "city")
+    @JoinColumn(name = "city", referencedColumnName = "id")
     private City city;
 
     /**
@@ -59,7 +59,7 @@ public class Driver {
      */
     @ManyToOne(targetEntity = Van.class)
     @JoinColumn(name = "van_id")
-    private int van;
+    private Van van;
 
     /**
      * Link on user's instance for associated with this driver.
@@ -103,7 +103,7 @@ public class Driver {
                   final long numParam,
                   final int hoursParam,
                   final City cityParam,
-                  final int vanParam,
+                  final Van vanParam,
                   final User userParam) {
         this.name = nameParam;
         this.surname = surnameParam;
@@ -214,7 +214,7 @@ public class Driver {
      * Getting current van.
      * @return current van
      */
-    public int getVan() {
+    public Van getVan() {
         return van;
     }
 
@@ -222,7 +222,7 @@ public class Driver {
      * Setting current van.
      * @param vanParam current van
      */
-    public void setVan(final int vanParam) {
+    public void setVan(final Van vanParam) {
         this.van = vanParam;
     }
 

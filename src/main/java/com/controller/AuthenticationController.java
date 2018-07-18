@@ -1,7 +1,6 @@
 
 package com.controller;
 
-import com.model.dto.RoleDTO;
 import com.model.dto.UserDTO;
 import com.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,17 +43,7 @@ public class AuthenticationController {
     @RequestMapping(path = "/register", method = RequestMethod.POST)
     public ModelAndView register(final HttpServletRequest request) {
 
-        UserDTO userDTO = userService.registerUser(
-                createUserDTO(
-                        request.getParameter("login"),
-                        request.getParameter("password")
-                )
-        );
-        if (userDTO.isValidate() && userDTO.isAuthorized()) {
-            return new ModelAndView("validate");
-        } else {
-            return new ModelAndView("invalidate");
-        }
+        return new ModelAndView("validate", "user", null);
     }
 
     /**
@@ -81,18 +70,7 @@ public class AuthenticationController {
      * @return configured User DTO
      */
     public UserDTO createUserDTO(final String login, final String password, final String role) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setLogin(login);
-        userDTO.setPassword(password);
-        userDTO.setRegistration(
-                Calendar.getInstance().getTime()
-        );
-        userDTO.setRole(
-              new RoleDTO(role)
-        );
-        userDTO.setValidate(false);
-        userDTO.setAuthorized(false);
-        return userDTO;
+        return new UserDTO(null, login, password, Calendar.getInstance().getTime(), role);
     }
 
     /**

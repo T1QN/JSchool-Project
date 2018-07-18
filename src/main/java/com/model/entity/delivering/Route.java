@@ -1,6 +1,6 @@
 package com.model.entity.delivering;
 
-import com.model.entity.delivering.Item;
+import com.model.entity.item.Item;
 import com.model.entity.map.City;
 
 import javax.persistence.*;
@@ -22,17 +22,84 @@ public class Route {
     private int id;
 
     @OneToOne(targetEntity = City.class)
-    @Column(name = "city_id")
+    @JoinColumn(name = "city_id", referencedColumnName = "id")
     private City city;
 
     @OneToOne(targetEntity = Item.class)
-    @Column(name = "item_id")
+    @JoinColumn(name = "item_id", referencedColumnName = "id")
     private Item item;
 
     @Column(name = "task")
     private boolean task;
 
     @ManyToOne(targetEntity = Order.class)
-    @Column(name = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Getters & Setters
+    ///////////////////////////////////////////////////////////////////////////
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Item getItem() {
+        return item;
+    }
+
+    public void setItem(Item item) {
+        this.item = item;
+    }
+
+    public boolean isTask() {
+        return task;
+    }
+
+    public void setTask(boolean task) {
+        this.task = task;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Constructors
+    ///////////////////////////////////////////////////////////////////////////
+
+    public Route() {
+
+    }
+
+    public Route(City city, Item item, boolean task, Order order) {
+        this.city = city;
+        this.item = item;
+        this.task = task;
+        this.order = order;
+    }
+
+    public Route(int id, City city, Item item, boolean task, Order order) {
+        this.id = id;
+        this.city = city;
+        this.item = item;
+        this.task = task;
+        this.order = order;
+    }
 }

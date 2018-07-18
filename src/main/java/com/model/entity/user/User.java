@@ -1,5 +1,7 @@
 package com.model.entity.user;
 
+import com.model.entity.user.Role;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  * Created by Mandrake on 25.06.2018.
  */
 @Entity
-@Table(name = "User")
+@Table(name = "user")
 public class User {
 
     ///////////////////////////////////////////////////////////////////////////

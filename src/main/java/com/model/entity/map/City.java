@@ -41,14 +41,25 @@ public class City {
 
     /**
      * Constructor with all parameters except ID.
-     * @param nameParam  Name of city
-     * @param nearsParam List of Nearest City
+     * @param nameParam  Name of city.
+     * @param nearsParam List of nearest cities.
      */
     public City(final String nameParam, final Set<Road> nearsParam) {
         this.name = nameParam;
         this.nears = nearsParam;
     }
 
+    /**
+     * Constructor with all parameters except ID.
+     * @param idParam ID of city.
+     * @param nameParam Name of city.
+     * @param nearsParam List of nearest cities.
+     */
+    public City(final long idParam, final String nameParam, final Set<Road> nearsParam) {
+        this.id = idParam;
+        this.name = nameParam;
+        this.nears = nearsParam;
+    }
     /**
      * Getting ID function.
      * @return id from current city

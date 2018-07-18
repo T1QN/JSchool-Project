@@ -1,6 +1,7 @@
 package com.model.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by Mandrake on 05.07.2018.
@@ -11,17 +12,11 @@ public class UserDTO {
     // Storage Fields
     ///////////////////////////////////////////////////////////////////////////
 
+    private long id;
     private String login;
     private String password;
     private Date registration;
-    private RoleDTO role;
-
-    ///////////////////////////////////////////////////////////////////////////
-    // Service fields
-    ///////////////////////////////////////////////////////////////////////////
-
-    private boolean validate;
-    private boolean authorized;
+    private String role;
 
     /**
      * Default constructor without parameters
@@ -40,25 +35,32 @@ public class UserDTO {
      * @param authorized
      */
     public UserDTO(
+            final Long id,
             final String login,
-            final  String password,
+            final String password,
             final Date registration,
-            final RoleDTO role,
-            final boolean validate,
-            final boolean authorized) {
+            final String role
+    ) {
         this();
+        this.id = id;
         this.login = login;
         this.password = password;
         this.registration = registration;
         this.role = role;
-        this.validate = validate;
-        this.authorized = authorized;
     }
 
 
     ///////////////////////////////////////////////////////////////////////////
     // Getters & Setters
     ///////////////////////////////////////////////////////////////////////////
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;
@@ -84,45 +86,34 @@ public class UserDTO {
         this.registration = registration;
     }
 
-    public RoleDTO getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(RoleDTO role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public boolean isValidate() {
-        return validate;
-    }
-
-    public void setValidate(boolean validate) {
-        this.validate = validate;
-    }
-
-    public boolean isAuthorized() {
-        return authorized;
-    }
-
-    public void setAuthorized(boolean authorized) {
-        this.authorized = authorized;
-    }
 
     ///////////////////////////////////////////////////////////////////////////
     // Object extended
     ///////////////////////////////////////////////////////////////////////////
 
-    public boolean equals(final Object other) {
-        if (this.getClass().equals(other.getClass())) {
-            UserDTO otherDTO = (UserDTO) other;
-            return this.authorized == otherDTO.authorized
-                    && this.validate == otherDTO.validate
-                    && this.getLogin().equals(otherDTO.getLogin())
-                    && this.getPassword().equals(otherDTO.getPassword())
-                    && this.getRegistration().equals(otherDTO.getRegistration())
-                    && this.getRole().equals(otherDTO.getRole());
-        } else return false;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserDTO userDTO = (UserDTO) o;
+        return id == userDTO.id
+                && Objects.equals(login, userDTO.login)
+                && Objects.equals(password, userDTO.password)
+                && Objects.equals(registration, userDTO.registration)
+                && Objects.equals(role, userDTO.role);
     }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, password, registration, role);
+    }
 }
